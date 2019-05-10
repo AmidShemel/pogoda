@@ -61,10 +61,9 @@ public class Parser {
             System.out.println(hepen);
         }
 
+//        String heppening = firstDay.select("");
+//        System.out.println("\n\t\tЯвище\t\tТемпература\t\tВолога\t\tТиск\t\tНапрям відру");
 
-
-        //String heppening = firstDay.select("")
-       // System.out.println("\n\t\tЯвище\t\tТемпература\t\tВолога\t\tТиск\t\tНапрям відру");
 
     }
 }
