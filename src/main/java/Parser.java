@@ -1,5 +1,5 @@
 /**
- * Показує погоду з найту https://sinoptik.ua
+ * Показує погоду з сайту https://sinoptik.ua
  */
 
 import org.jsoup.Jsoup;
@@ -29,7 +29,7 @@ public class Parser {
             uri = new URI(textToConvert);
         } catch (URISyntaxException e) {
             e.printStackTrace();
-            System.out.println("Помилка в конвертації назві міста");
+            System.out.println("Помилка в конвертації назви міста");
         }
         return uri.toASCIIString();
     }
@@ -40,7 +40,7 @@ public class Parser {
         //String curentTime = String.format("%tT", c); //format hh:mm:ss
         //String currentDate = String.format("%ta %td.%tm.%ty", c, c, c, c);  //format Fr dd.MM.yyyy
         String currentDate = String.format("%tY-%tm-%td", c, c, c);  //format yyyy-MM-dd
-        return currentDate; //format dd.MM.yyyy
+        return currentDate;
     }
 
 
