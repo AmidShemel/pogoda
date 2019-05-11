@@ -12,13 +12,15 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Parser {
 
     private static Document getPage() throws IOException {
-        String city = "київ"; // бровари ніжин київ одеса
+        String city = "бровари"; // бровари ніжин київ одеса
         String url = "https://ua.sinoptik.ua/" + toASCII("погода-" + city + "/") + toDay();
-        Document page = Jsoup.parse(new URL(url), 1500);
+        Document page = Jsoup.parse(new URL(url), 3000);
         return page;
     }
 
@@ -43,27 +45,35 @@ public class Parser {
         return currentDate;
     }
 
+    // Пошук інформації про погодні явища
+    public static String phenomenon(String s){
+
+        Pattern pattern = Pattern.compile("class=\"weather.+title=\".+?\">");
+        Matcher matcher = pattern.matcher(s);
+
+        while (matcher.find()) {
+            s = s.substring(matcher.start(), matcher.end());
+            int start = s.indexOf("title=\"")+7;
+            int finish = s.indexOf("\">");
+           return s.substring(start, finish);
+        }
+
+        return "data not found";
+
+    }
+
 
     public static void main(String[] args) throws IOException {
 
         Document page = getPage();
-//        System.out.println(page + "\n\n===================================");
-
         Element tableWth = page.select("div[class=tabs]").first();
 
-        //System.out.println(tableWth + "\n\n===================================");
-
-
         for(int i = 1; i<=7; i++){
+
             Elements firstDay = tableWth.select("div[id=bd"+i+"]");
-            //System.out.println(firstDay + "\n\n===============================");
             String hepen = firstDay.select("div").first().text();
-            System.out.println(hepen);
+            System.out.println(hepen + " " + phenomenon(String.valueOf(firstDay)));
+
         }
-
-//        String heppening = firstDay.select("");
-//        System.out.println("\n\t\tЯвище\t\tТемпература\t\tВолога\t\tТиск\t\tНапрям відру");
-
-
     }
 }
