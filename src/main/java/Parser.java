@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class Parser {
 
     private static Document getPage() throws IOException {
-        String city = "київ"; // бровари ніжин київ одеса
+        String city = "одеса"; // бровари ніжин київ одеса
         String url = "https://ua.sinoptik.ua/" + toASCII("погода-" + city + "/") + toDay();
         Document page = Jsoup.parse(new URL(url), 2000);
         return page;
