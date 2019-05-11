@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class Parser {
 
     private static Document getPage() throws IOException {
-        String city = "бровари"; // бровари ніжин київ одеса
+        String city = "одеса"; // бровари ніжин київ одеса
         String url = "https://ua.sinoptik.ua/" + toASCII("погода-" + city + "/") + toDay();
         Document page = Jsoup.parse(new URL(url), 3000);
         return page;
@@ -48,14 +48,11 @@ public class Parser {
     // Пошук інформації про погодні явища
     public static String phenomenon(String s){
 
-        Pattern pattern = Pattern.compile("class=\"weather.+title=\".+?\">");
+        Pattern pattern = Pattern.compile("class=\"weather.+title=\"(?<weather>.*?)\">");
         Matcher matcher = pattern.matcher(s);
 
         while (matcher.find()) {
-            s = s.substring(matcher.start(), matcher.end());
-            int start = s.indexOf("title=\"")+7;
-            int finish = s.indexOf("\">");
-           return s.substring(start, finish);
+            return matcher.group("weather");
         }
 
         return "data not found";
