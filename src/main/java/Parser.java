@@ -55,7 +55,7 @@ public class Parser {
             return matcher.group("weather");
         }
 
-        return "data not found";
+        return "Інформацію про погодні явища не знайдено";
 
     }
 
